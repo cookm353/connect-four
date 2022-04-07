@@ -16,8 +16,8 @@
     * Add a reset button
 
 ## Step 2: ES2015
-* Replace `var` with `const` and `let`
-* Use arrow functions
+* `var` vs `const` and `let`
+* Arrow functions
 * rest/spread
 * Destructuring
 * Maps and sets
@@ -25,16 +25,19 @@
 ## Step 3: makeBoard()
 * Implement makeBoard() to create multidimensional array
 * Set board's size to constants for height and width
+* DONE!
 
 ## Step 4: makeHTMLBoard()
 * Create an HTML table for a representation of the board
+* DONE!
 
 ## Step 5: placeInTable() & Piece CSS
-* Add `<div>` to `<td>` elements
+* Add `<div>` elements for game pieces
 * `<div>` elements should have `piece` class and another class for `player1` or `player2`
 * Pieces for player 1 should be a different color from player 2
 * Game pieces can be made into circles using `border-radius: 50%;`
 * Clicking a column should result in a piece appearing at the bottom
+* DONE!
 
 ## Step 6: handleClick()
 * Fixes needed:

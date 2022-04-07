@@ -17,13 +17,14 @@ const board = []; // array of rows, each row is array of cells  (board[y][x])
 
 function makeBoard() {
   // Create nested array representing game board
-  for (let x = 0; x < WIDTH; x ++) {
+  for (let y = 0; y < HEIGHT; y ++) {
     board.push([])
-    for (let y = 0; y < HEIGHT; y ++) {
-      board[x].push([])
+    for (let x = 0; x < WIDTH; x ++) {
+      board[y].push(null)
     }
   }
 }
+
 
 /** makeHtmlBoard: make HTML table and row of column tops. */
 
@@ -55,12 +56,20 @@ function makeHtmlBoard() {
   }
 }
 
+
 /** findSpotForCol: given column x, return top empty y (null if filled) */
 
 function findSpotForCol(x) {
   // TODO: write the real version of this, rather than always returning 0
-  return 0;
+  for (let col = 0; col < HEIGHT; col++) {
+    // if ( board[col][x] === "bloop" ) { 
+    if ( !board[col][x]) { 
+      return col;
+    }
+  }
+  return null;
 }
+
 
 /** placeInTable: update DOM to place piece into HTML table of board */
 
@@ -73,19 +82,21 @@ function placeInTable(y, x) {
   currPlayer === 1 ? newGamePiece.classList.add("p1") : 
     newGamePiece.classList.add("p2");
 
-  if (currPlayer === 1) newGamePiece.classList.add("p1")
-  else newGamePiece.classList.add("p2")
+  if (currPlayer === 1) newGamePiece.classList.add("p1");
+  else newGamePiece.classList.add("p2");
 
-  console.log(newGamePiece)
-  console.log(tile)
-   tile.appendChild(newGamePiece)
+  // console.log(tile)
+  tile.appendChild(newGamePiece);
 }
+
 
 /** endGame: announce game end */
 
 function endGame(msg) {
   // TODO: pop up alert message
+  alert(msg);
 }
+
 
 /** handleClick: handle click of column top to play piece */
 
@@ -102,6 +113,8 @@ function handleClick(evt) {
   // place piece in board and add to HTML table
   // TODO: add line to update in-memory board
   placeInTable(y, x);
+  board[y][x] = currPlayer;
+
 
   // check for win
   if (checkForWin()) {
@@ -110,10 +123,12 @@ function handleClick(evt) {
 
   // check for tie
   // TODO: check if all cells in board are filled; if so call, call endGame
+  if (board.every(cell => cell === true)) endGame("Tie!")
 
   // switch players
-  // TODO: switch currPlayer 1 <-> 2
+  currPlayer === 1 ? currPlayer = 2 : currPlayer = 1;
 }
+
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
 
