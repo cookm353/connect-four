@@ -53,6 +53,7 @@ function makeHtmlBoard() {
   // Make rows for body, add cells, add ID to each w/ coordinate, add to table
   for (let y = 0; y < HEIGHT; y++) {
     const row = document.createElement("tr");
+    row.className = "tbody"
     for (let x = 0; x < WIDTH; x++) {
       const cell = document.createElement("td");
       cell.setAttribute("id", `${HEIGHT - 1 - y}-${x}`);
@@ -99,7 +100,8 @@ function placeInTable(y, x) {
 /** endGame: announce game end */
 
 function endGame(msg) {
-  // TODO: pop up alert message
+  const top = document.querySelector("#column-top")
+  top.removeEventListener("click", handleClick)
   alert(msg);
 }
 
@@ -109,6 +111,7 @@ function endGame(msg) {
 function handleClick(evt) {
   // get x from ID of clicked cell
   let x = +evt.target.id;
+  console.log(evt.target)
 
   // get next spot in column (if none, ignore click)
   const y = findSpotForCol(x);
@@ -172,3 +175,18 @@ function checkForWin() {
 
 makeBoard();
 makeHtmlBoard();
+
+
+// Making title and game fade in
+
+const titleFadeIn = setTimeout(() => {
+  const title = document.querySelector("h1");
+  title.style.transition = "1s"
+  title.style.opacity = "100%"
+}, 1000);
+
+const gameFadeIn = setTimeout(() => {
+  const gameBoard = document.querySelector("#board");
+  gameBoard.style.transition = "2s"
+  gameBoard.style.opacity = "100%"
+}, 2000);
