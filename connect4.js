@@ -1,3 +1,9 @@
+/*
+Just make the pieces go to the bottom instead of staying at the top and you're
+golden!
+/*
+
+
 /** Connect Four
  *
  * Player 1 and 2 alternate turns. On each turn, a piece is dropped down a
@@ -49,7 +55,7 @@ function makeHtmlBoard() {
     const row = document.createElement("tr");
     for (let x = 0; x < WIDTH; x++) {
       const cell = document.createElement("td");
-      cell.setAttribute("id", `${y}-${x}`);
+      cell.setAttribute("id", `${HEIGHT - 1 - y}-${x}`);
       row.append(cell);
     }
     htmlBoard.append(row);
