@@ -26,7 +26,7 @@ function makeBoard() {
   for (let y = 0; y < HEIGHT; y ++) {
     board.push([])
     for (let x = 0; x < WIDTH; x ++) {
-      board[y].push(null)
+      board[y].push(undefined)
     }
   }
 }
@@ -67,9 +67,7 @@ function makeHtmlBoard() {
 /** findSpotForCol: given column x, return top empty y (null if filled) */
 
 function findSpotForCol(x) {
-  // TODO: write the real version of this, rather than always returning 0
   for (let col = 0; col < HEIGHT; col++) {
-    // if ( board[col][x] === "bloop" ) { 
     if ( !board[col][x]) { 
       return col;
     }
@@ -81,16 +79,12 @@ function findSpotForCol(x) {
 /** placeInTable: update DOM to place piece into HTML table of board */
 
 function placeInTable(y, x) {
-  // TODO: make a div and insert into correct table cell
   const tile = document.getElementById(`${y}-${x}`);
   const newGamePiece = document.createElement("div");
   newGamePiece.className = "piece";
 
   currPlayer === 1 ? newGamePiece.classList.add("p1") : 
     newGamePiece.classList.add("p2");
-
-  if (currPlayer === 1) newGamePiece.classList.add("p1");
-  else newGamePiece.classList.add("p2");
 
   // console.log(tile)
   tile.appendChild(newGamePiece);
@@ -111,7 +105,6 @@ function endGame(msg) {
 function handleClick(evt) {
   // get x from ID of clicked cell
   let x = +evt.target.id;
-  console.log(evt.target)
 
   // get next spot in column (if none, ignore click)
   const y = findSpotForCol(x);
@@ -120,7 +113,6 @@ function handleClick(evt) {
   }
 
   // place piece in board and add to HTML table
-  // TODO: add line to update in-memory board
   placeInTable(y, x);
   board[y][x] = currPlayer;
 
@@ -131,8 +123,9 @@ function handleClick(evt) {
   }
 
   // check for tie
-  // TODO: check if all cells in board are filled; if so call, call endGame
-  if (board.every(cell => cell === true)) endGame("Tie!")
+  const boardFull = board.reduce((isFull, currRow) => 
+    currRow.every(cell => cell !== undefined))
+  if (boardFull) endGame("Tie!")
 
   // switch players
   currPlayer === 1 ? currPlayer = 2 : currPlayer = 1;
